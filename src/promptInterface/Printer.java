@@ -17,4 +17,15 @@ public class Printer {
             i++;
         }
     }
+
+    public static void printSolution(boolean[] combinations){
+        System.out.printf("Solution: Users ");
+        for(int i = 0; i < combinations.length; i++){
+            if(combinations[i] == true){
+                System.out.print((i + 1) + " ");
+            }
+        }
+
+        System.out.printf("form a good combination :)");
+    }
 }

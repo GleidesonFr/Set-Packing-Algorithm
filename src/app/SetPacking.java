@@ -1,12 +1,15 @@
 package app;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import promptInterface.Printer;
 
 public class SetPacking {
 
     private static boolean[] combinations;
 
-    public static boolean verifyDisjuctionWithArray(ArrayList<User> cumulative, User user){
+    private static boolean verifyDisjuctionWithArray(ArrayList<User> cumulative, User user){
         if(cumulative.isEmpty()){
             return true;
         }else{
@@ -23,7 +26,7 @@ public class SetPacking {
         }
     }
 
-    public static boolean verifyDisjuction(User userMaster, User userCommon){
+    private static boolean verifyDisjuction(User userMaster, User userCommon){
         int[] array = userCommon.getLanguages();
         int i = 0;
 
@@ -37,26 +40,53 @@ public class SetPacking {
         return true;
     }
 
-    public static int[] insertToArray(User user){
-        int[] array = new int[user.getLanguages().length];
-        int i = 0;
+    private static void insertToArray(ArrayList<User> Cumulative){
+        Arrays.fill(combinations, false);
+        for (User user : Cumulative) {
+            combinations[user.getId() - 1] = true;
+        }
+    }
 
-        for (int language : user.getLanguages()) {
-            array[i] = language;
+    private static boolean isCombinationsEmpty(){
+        for (int index = 0; index < combinations.length; index++) {
+            if(combinations[index] == true){
+                return false;
+            }
         }
 
-        return array;
+        return true;
     }
 
-    public static boolean verifyMax(ArrayList<User> Cumulative){
-        return true; //is comming
+    private static boolean verifyMax(ArrayList<User> Cumulative){
+        int countCombinations = 0;
+        for(int i = 0; i < combinations.length; i++){
+            if(combinations[i] == true){
+                countCombinations++;
+            }
+        }
+
+        if(countCombinations < Cumulative.size()){
+            return true;
+        }else{
+            return false;
+        }
     }
 
-    public static boolean storeCombinations(ArrayList<User> Cumulative){
-        return true; //is comming
+    private static boolean storeCombinations(ArrayList<User> Cumulative){
+        if(!isCombinationsEmpty()){
+            if(verifyMax(Cumulative)){
+                insertToArray(Cumulative);
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            insertToArray(Cumulative);
+            return true;
+        }
     }
 
-    public static void recursiveSetPacking(ArrayList<User> users, ArrayList<User> Cumulative){
+    private static void recursiveSetPacking(ArrayList<User> users, ArrayList<User> Cumulative){
         boolean verification;
 
         for (int i = 0; i < users.size(); i++) {
@@ -66,8 +96,7 @@ public class SetPacking {
                 recursiveSetPacking(users, Cumulative);
             }
         }
-            //... is comming ...
-
+            storeCombinations(Cumulative);
     }
     
     public static void SetPackingAlgorithm(ArrayList<User> users){
@@ -86,8 +115,9 @@ public class SetPacking {
                     }
                 }
             }
-
             recursiveSetPacking(storeUsers, cumulative);
         }
+
+        Printer.printSolution(combinations);
     }
 }

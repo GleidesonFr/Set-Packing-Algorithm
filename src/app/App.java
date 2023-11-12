@@ -9,7 +9,7 @@ public class App {
     
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int selection, valueI = 0, valueJ = 0, Matrix[][];
+        int selection, valueI = 0, valueJ = 0;
         ArrayList<User> users = new ArrayList<User>();
 
         while (true) {
@@ -33,7 +33,7 @@ public class App {
                     users = RandomMatrixValue.initRandomMatrixValues(valueI, valueJ);
                 break;
                 case 2:
-                    Menu.comingSoonMessage();
+                    SetPacking.SetPackingAlgorithm(users);
                 break;
                 case 3:
                     Menu.comingSoonMessage();
