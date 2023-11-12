@@ -1,5 +1,6 @@
 package app;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import promptInterface.Menu;
@@ -9,6 +10,7 @@ public class App {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int selection, valueI = 0, valueJ = 0, Matrix[][];
+        ArrayList<User> users = new ArrayList<User>();
 
         while (true) {
             Menu.logo();
@@ -16,7 +18,7 @@ public class App {
             Menu.selection();
             selection = sc.nextInt();
 
-            while(selection < 1 && selection > 6){
+            while(selection < 1 || selection > 6){
                 Menu.errorInTyping();
                 selection = sc.nextInt();
             }
@@ -28,7 +30,7 @@ public class App {
                     valueI = sc.nextInt();
                     Menu.secondQuestion();
                     valueJ = sc.nextInt();
-                    Matrix = RandomMatrixValue.initRandomMatrixValues(valueI, valueJ);
+                    users = RandomMatrixValue.initRandomMatrixValues(valueI, valueJ);
                 break;
                 case 2:
                     Menu.comingSoonMessage();
@@ -43,6 +45,7 @@ public class App {
                     Menu.comingSoonMessage();
                 break;
                 case 6:
+                    Menu.seeYouLaterMessage();
                     sc.close();
                     System.exit(0);
                 break;

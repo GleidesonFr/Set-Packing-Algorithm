@@ -44,4 +44,9 @@ public class Menu {
         System.out.println();
         System.out.printf("Sorry, but this value not is valid. Please, try again: ");
     }
+
+    public static void seeYouLaterMessage(){
+        System.out.println();
+        System.out.println("See you later, dev! :)");
+    }
 }
